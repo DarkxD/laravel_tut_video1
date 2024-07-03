@@ -2,7 +2,10 @@
 
 @section('content')
 
-<h1>AI tools lista</h1>
+<h1>AI eszközök
+    <a href="{{ route('aitools.index', ['sort_by' => 'name', 'sort_dir' => 'asc']) }}" title="ABC">▼</a>
+    <a href="{{ route('aitools.index', ['sort_by' => 'name', 'sort_dir' => 'desc']) }}" title="ZYX">▲</a>
+</h1>
 
 @if(session('success'))
     <div class="alert alert-success">
@@ -31,6 +34,13 @@
     </li>
     @endforeach
 </ul>
+
+<div class="paginator">
+    {{-- $aitools-> links() --}}
+        {{ $aitools->appends(['sort_by' => request('sort_by'), 'sort_dir' => request('sort_dir')])-> links() }} {{-- Lehozza az url ből a rendezést --}}
+</div>
+
+
 </div>
 
 

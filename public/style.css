@@ -8,6 +8,7 @@ body{
 }
 a {
     color:#fff;
+    text-decoration: none;
 }
 
 button,.button {
@@ -53,7 +54,21 @@ header, header < a {
     background-color: rgb(255, 255, 255);
     color: black;
 }
+
 fieldset{
     display:flex;
     
+}
+
+.paginator {
+    margin: 3em auto 1em auto;
+    width: fit-content;
+    text-align: center;
+}
+
+.paginator svg {
+    width: 1em;
+    height: 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
 }

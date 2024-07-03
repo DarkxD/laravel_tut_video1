@@ -14,7 +14,11 @@ class AitoolsController extends Controller
      */
     public function index()
     {
-        $aitools = Aitool::with('tags')->get();
+        $sort_by = request()->query('sort_by', 'id');
+        $sort_dir = request()->query('sort_dir', 'asc');
+
+        //$aitools = Aitool::with('tags')->orderBy($sort_by, $sort_dir)->get(); // az összes találatot megjelenítette
+        $aitools = Aitool::with('tags')->orderBy($sort_by, $sort_dir)->paginate(5); // csak 5 öt jelenít meg
         return view('aitools.index', compact('aitools'));
     }
 
