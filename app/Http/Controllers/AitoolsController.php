@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aitool;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class AitoolsController extends Controller
@@ -13,7 +14,7 @@ class AitoolsController extends Controller
      */
     public function index()
     {
-        $aitools = Aitool::all();
+        $aitools = Aitool::with('tags')->get();
         return view('aitools.index', compact('aitools'));
     }
 
@@ -23,7 +24,8 @@ class AitoolsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('aitools.create', compact('categories'));
+        $tags = Tag::all();
+        return view('aitools.create', compact('categories'), compact('tags'));
     }
 
     /**
@@ -31,7 +33,9 @@ class AitoolsController extends Controller
      */
     public function store(Request $request)
     {
-        Aitool::create($request->all());
+        $aitool = Aitool::create($request->all());
+        $aitool->tags()->attach( $request->tags); // Attach tags to the AI tool (many-to-many relationship)
+
         return redirect()->route('aitools.index')->with('success', 'Az AI eszköz sikeresen hozzáadva.');
     }
 
@@ -40,7 +44,7 @@ class AitoolsController extends Controller
      */
     public function show(string $id)
     {
-        $aitool = Aitool::find($id);
+        $aitool = Aitool::with('tags')->find($id);
         $category = Category::find($aitool->category_id);
         return view('aitools.show', compact('aitool'), compact('category'));
     }
@@ -50,7 +54,9 @@ class AitoolsController extends Controller
      */
     public function edit(string $id)
     {
-        $aitool = Aitool::find($id);
+        $aitool = Aitool::with('tags')->find($id);
+        $aitool->tags()->attach( $aitool->tags);
+
         $categories = Category::all();
         return view('aitools.edit', compact('aitool'), compact('categories'));
     }
@@ -61,7 +67,7 @@ class AitoolsController extends Controller
     public function update(Request $request, string $id)
     {
         // mentés
-        $aitool = Aitool::find($id);
+        $aitool = Aitool::with('tags')->find($id);
         $aitool->name = $request->name;
         $aitool->category_id = $request->category_id;
         $aitool->description = $request->description;
@@ -85,6 +91,11 @@ class AitoolsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $aitool = Aitool::find($id);
+        $name_s = $aitool->name;
+        $id_s = $id;
+        $aitool->delete();
+
+        return redirect() -> route('aitools.index') -> with('success', 'AI tool törölve lett: id '.$id.', név '.$name_s);
     }
 }

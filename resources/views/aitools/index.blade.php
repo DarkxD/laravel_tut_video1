@@ -15,6 +15,11 @@
     @foreach($aitools as $aitool)
     <li>
         <a> {{ $aitool->id }} - {{ $aitool->name }}</a>
+            <ul>
+                @foreach ($aitool->tags as $tag)
+                    <li>{{$tag->name}}</li>
+                @endforeach
+           </ul>
         <a href="{{ route('aitools.show', $aitool->id )}} " class="button">Megjelenítés</a>
         <a href="{{ route('aitools.edit', $aitool->id )}} " class="button">Szerkesztés</a>
         

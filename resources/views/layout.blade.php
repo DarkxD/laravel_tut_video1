@@ -17,6 +17,8 @@
                 <li><a href="{{ route('categories.create')}}">Új kategória</a></li>
                 <li><a href="{{ route('aitools.index')}}">AI tools</a></li>
                 <li><a href="{{ route('aitools.create')}}">AI tools create</a></li>
+                <li><a href="{{ route('tags.index')}}">Tags</a></li>
+                <li><a href="{{ route('tags.create')}}">Tags create</a></li>
             </ul>
         </nav>
     </header>

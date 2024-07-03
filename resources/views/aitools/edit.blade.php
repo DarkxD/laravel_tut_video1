@@ -61,6 +61,17 @@
         <label for="price">Ár (havonta Ft-ban)</label>
         <input type="number" name="price" id="price" step=".01" value="{{ old('price', $aitool->price) }}">
     </fieldset>
+
+    <fieldset>
+        
+        <label for="tags">Címkék</label>
+        <select name="tags" id="tags" multiple>
+            @foreach ( $tags as $tag )
+                <option value=" {{ $tag->id }} ">{{ $tag->name }}</option>
+            @endforeach
+        </select>
+    </fieldset>
+
     <button type="submit">Mentés</button>
 </form>
 </div>

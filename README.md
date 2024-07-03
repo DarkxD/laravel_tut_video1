@@ -22,6 +22,6 @@ github repo építése
 2. nap - Hibajavítás, videó befejezése (bootstrap alapozás)
 
 migrate javítások: hasFeePlan->hasFreePlan, string típúsról bool típúsra, price decimal(5,2) növelése (50,2) méretre
-
+Tagek, címkék létrehozása, kezelése. Tagek hozzácsatolása az aitools-hoz. aitools létrehozásánál hozzá lehet adni tag-eket. belongstomany modell, timestamp nélküli kapcsolótábla.
 
 Projekt befejezése: 

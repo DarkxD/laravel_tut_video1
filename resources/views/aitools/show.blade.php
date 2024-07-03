@@ -17,6 +17,12 @@
 
 
 <p>Ára: havi {{ $aitool->price }} Ft</p>
+<p>Címkék:</p>
+<ul>
+    @foreach ($aitool->tags as $tag)
+        <li>{{$tag->name}}</li>
+    @endforeach
+</ul>
 <p>Utoljára frissítve: {{ $aitool->updated_at }}</p>
 
 
