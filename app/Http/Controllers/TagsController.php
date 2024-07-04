@@ -67,6 +67,8 @@ class TagsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tag = Tag::find($id);
+        $tag->delete();
+        return redirect()->route('tags.index')->with('info', 'A címke törölve lett!');
     }
 }

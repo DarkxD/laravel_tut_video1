@@ -6,7 +6,7 @@ use App\Http\Controllers\TagsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/categories');
+    return redirect('/aitools');
 });
 
 Route::resource('categories', CategoriesController::class);

@@ -3,7 +3,7 @@
 @section('content')
 
 
-<h1>EDIT AI tool data</h1>
+<h1>AI eszköz módosítása</h1>
 
 
 @error('name')
@@ -63,12 +63,32 @@
     </fieldset>
 
     <fieldset>
-        
         <label for="tags">Címkék</label>
-        <select name="tags" id="tags" multiple>
-            @foreach ( $tags as $tag )
-                <option value=" {{ $tag->id }} ">{{ $tag->name }}</option>
+        <select name="tags[]" id="tags" multiple>
+
+            @foreach ( $tags as $t )
+                @php 
+                    $megjelent = false;
+                @endphp
+
+                @foreach ($aitool->tags as $tag )
+                    @if ( $tag->id == $t->id ) 
+                        
+                        @php
+                            $megjelent = true;
+                        @endphp
+
+                        <option value="{{ $t->id }}" selected>{{ $t->name }}</option>
+                    @endif
+                @endforeach
+
+                 
+                @if (!$megjelent)
+                    <option value="{{ $t->id }}">{{ $t->name }}</option>
+                @endif
+                    
             @endforeach
+
         </select>
     </fieldset>
 

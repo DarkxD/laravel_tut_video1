@@ -59,10 +59,11 @@ class AitoolsController extends Controller
     public function edit(string $id)
     {
         $aitool = Aitool::with('tags')->find($id);
-        $aitool->tags()->attach( $aitool->tags);
+        //$aitool->tags()->attach( $aitool->tags);
+        $tags = Tag::all();
 
         $categories = Category::all();
-        return view('aitools.edit', compact('aitool'), compact('categories'));
+        return view('aitools.edit', compact('aitool', 'tags'), compact('categories'));
     }
 
     /**
@@ -72,6 +73,16 @@ class AitoolsController extends Controller
     {
         // mentés
         $aitool = Aitool::with('tags')->find($id);
+        $alltags = Tag::all();
+        
+
+        $tags = $aitool->tags()->sync($request->tags); // Update
+        //$tags = $aitool->tags;
+        //$tags->delete();
+        //$tags->attach($request->tags);
+
+
+
         $aitool->name = $request->name;
         $aitool->category_id = $request->category_id;
         $aitool->description = $request->description;
@@ -84,8 +95,26 @@ class AitoolsController extends Controller
         
         $aitool->price = $request->price;
 
-        $aitool->save();
+        //$aitool->tags()->detach($request->tag);
+        // Aitool aktuális tagjeinek ID-i
+        //$currentTagIds = $aitool->tags->pluck('id')->toArray();
 
+        // Az új tagek, amiket hozzá kell adni
+        //$newTags = array_diff($request->tags, $currentTagIds);
+
+        // Csak az új tagek hozzáadása
+        //$aitool->tags()->attach($newTags);
+
+        //$aitool->tags->delete();
+
+        //if ($request->tags == $aitool->tags) {
+        //    $aitool->save();
+        //} else {
+        //    $aitool->tags()->attach( $request->tags - $aitool->tags );
+        //    $aitool->save();
+        //}
+
+        $aitool->save();
         // átirányítás
         return redirect() -> route('aitools.index') -> with('success', 'Sikeres kategória módosítás.');
     }
